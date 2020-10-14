@@ -36,4 +36,9 @@ class pipelineVars implements Serializable {
     String seleniumImage = 'docker-registry.default.svc:5000/jenkins/selenium-fc29:latest'
     String defaultUICloud = 'cmqe'
 
+    String rhsmProdQaCreds = 'rhsm-prod-insights-qa'
+    String rhsmProdServerUrl = 'subscription.rhsm.redhat.com'
+    String rhsmStageQaCreds = 'rhsm-stage-insights-qa'
+    String rhsmStageServerUrl = 'subscription.rhsm.stage.redhat.com'
+
 }
