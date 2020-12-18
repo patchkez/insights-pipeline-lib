@@ -121,7 +121,7 @@ def setupVenvDir(){
 }
 
 
-def setupIqeInsightsClientPlugin(String eggBranch=3.0){
+def setupIqeInsightsClientPlugin(String eggBranch='master'){
     venvDir = setupVenvDir()
     git credentialsId: 'gitlab', url: 'https://gitlab.cee.redhat.com/insights-qe/iqe-insights-client-plugin.git', branch: "${IQE_BRANCH}"
 
