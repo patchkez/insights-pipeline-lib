@@ -44,7 +44,7 @@ def rhsmRegister(
 
 def rhsmUnregister(){
     def registered = sh ( script: "subscription-manager identity", returnStatus: true)
-    println(${registered})
+    println(registered)
     if(registered == 0){
         sh '''
             subscription-manager remove --all
