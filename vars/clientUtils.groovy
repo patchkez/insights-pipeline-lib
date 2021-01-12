@@ -17,6 +17,7 @@ def rhsmRegister(
         String activationKey=null,
         String org=null){
     if(poolId){
+        echo 'poolId specified'
         withCredentials([usernamePassword(credentialsId: credentialId, usernameVariable: 'username', passwordVariable: 'password')]) {
             sh """
                 subscription-manager register --serverurl=${url} --username=${username} --password=${password}
@@ -26,12 +27,14 @@ def rhsmRegister(
         }
     }
     else if (activationKey){
+        echo 'activationKey specified'
         sh """
             subscription-manager register --org=${org} --activationkey=${activationKey}
             subscription-manager refresh
         """
     }
     else {
+        echo 'else'
         withCredentials([usernamePassword(credentialsId: credentialId, usernameVariable: 'username', passwordVariable: 'password')]) {
             sh """
                 subscription-manager register --serverurl=${url} --username=${username} --password=${password} --auto-attach --force
