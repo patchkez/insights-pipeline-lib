@@ -10,6 +10,8 @@
 * @param (optional) activationKey = RHSM activation key, usually used for Satellite hosts
 * @param (optional) org = Satellite Organization name
 */
+import com.cloudbees.groovy.cps.NonCPS
+@NonCPS
 def rhsmRegister(Map parameters = [:]){
     def url = parameters['url']
     def creds = parameters['credentialId']
