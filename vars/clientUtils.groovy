@@ -16,9 +16,14 @@ def rhsmRegister(
         String poolId=null,
         String activationKey=null,
         String org=null){
+    def url = parameters['url']
+    def creds = parameters['credentialId']
+    def poolId = parameters['poolId']
+    def activationKey = parameters['activationKey']
+    def org = parameters['org']
     if(poolId){
         echo 'poolId specified'
-        withCredentials([usernamePassword(credentialsId: credentialId, usernameVariable: 'username', passwordVariable: 'password')]) {
+        withCredentials([usernamePassword(credentialsId: creds, usernameVariable: 'username', passwordVariable: 'password')]) {
             sh """
                 subscription-manager register --serverurl=${url} --username=${username} --password=${password}
                 subscription-manager attach --pool=${poolId}
@@ -35,8 +40,8 @@ def rhsmRegister(
     }
     else {
         echo 'else'
-        echo "$credentialId"
-        withCredentials([usernamePassword(credentialsId: credentialId, usernameVariable: 'username', passwordVariable: 'password')]) {
+        echo "$creds"
+        withCredentials([usernamePassword(credentialsId: creds, usernameVariable: 'username', passwordVariable: 'password')]) {
             echo 'Credentials'
             sh """
                 subscription-manager register --serverurl=${url} --username=${username} --password=${password} --auto-attach --force
