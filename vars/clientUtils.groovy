@@ -36,6 +36,7 @@ def rhsmRegister(
     else {
         echo 'else'
         withCredentials([usernamePassword(credentialsId: credentialId, usernameVariable: 'username', passwordVariable: 'password')]) {
+            echo 'Credentials'
             sh """
                 subscription-manager register --serverurl=${url} --username=${username} --password=${password} --auto-attach --force
                 subscription-manager refresh
