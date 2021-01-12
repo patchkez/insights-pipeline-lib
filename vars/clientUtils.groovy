@@ -10,12 +10,13 @@
 * @param (optional) activationKey = RHSM activation key, usually used for Satellite hosts
 * @param (optional) org = Satellite Organization name
 */
-def rhsmRegister(parameters = [:]){
+def rhsmRegister(Map parameters = [:]){
     def url = parameters['url']
     def creds = parameters['credentialId']
     def poolId = parameters['poolId']
     def activationKey = parameters['activationKey']
     def org = parameters['org']
+    echo "$creds"
     if(poolId){
         echo 'poolId specified'
         withCredentials([usernamePassword(credentialsId: creds, usernameVariable: 'username', passwordVariable: 'password')]) {
