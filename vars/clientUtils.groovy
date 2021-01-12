@@ -44,13 +44,16 @@ def rhsmRegister(
 
 def rhsmUnregister(){
     def registered = sh ( script: "subscription-manager identity", returnStatus: true)
-    println(registered)
     if(registered == 0){
+        echo 'Machine is registered already, re-registering...'
         sh '''
             subscription-manager remove --all
             subscription-manager unregister
             subscription-manager clean
         '''
+    }
+    else {
+        echo 'Machine is not registered...'
     }
 }
 
