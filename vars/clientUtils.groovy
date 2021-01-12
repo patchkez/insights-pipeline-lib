@@ -10,12 +10,7 @@
 * @param (optional) activationKey = RHSM activation key, usually used for Satellite hosts
 * @param (optional) org = Satellite Organization name
 */
-def rhsmRegister(
-        String url=null,
-        String credentialId,
-        String poolId=null,
-        String activationKey=null,
-        String org=null){
+def rhsmRegister(parameters = [:]){
     def url = parameters['url']
     def creds = parameters['credentialId']
     def poolId = parameters['poolId']
