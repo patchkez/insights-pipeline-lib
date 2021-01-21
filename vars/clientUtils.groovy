@@ -128,7 +128,6 @@ def setupIqeInsightsClientPlugin(String eggBranch=3.0){
         sh """
             echo "/iqe_venv exists"
             source ${venvDir}/bin/activate
-            devpi use https://devpi-iqe.cloud.paas.psi.redhat.com/iqe/packages --set-cfg
             pip install -U pip setuptools setuptools_scm wheel iqe-integration-tests
             iqe plugin install --editable .
             pip install git+https://github.com/RedHatInsights/insights-core.git@${eggBranch}
@@ -184,7 +183,6 @@ def setupIqeAnsible(String iqeAnsibleBranch='master'){
 def runTests(String pytestParam=null){
         venvDir = setupVenvDir()
         sh """
-            echo 'ENV_FOR_DYNACONF=${ENV_AUTH_TYPE}'
             source ${venvDir}/bin/activate
             iqe tests plugin insights_client --junitxml=junit.xml --disable-pytest-warnings -rxv ${pytestParam}
         """
@@ -204,7 +202,7 @@ def runAnsible(String playbookFile, String playbookTags=null){
                 cd insights-client/
                 export ANSIBLE_LOG_PATH="${WORKSPACE}/ansible_${env.NODE_NAME}.log"
                 export JUNIT_OUTPUT_DIR="${WORKSPACE}/"
-                ansible-playbook ${playbookFile} --tags ${playbookTags}
+                ansible-playbook ${playbookFile} --tags [test,${playbookTags}]
             """
         }
         else {
