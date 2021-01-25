@@ -191,22 +191,20 @@ def runTests(String pytestParam=null){
 def runAnsible(String playbookFile, String playbookTags=null){
         echo "Running ansible..."
         venvDir = setupVenvDir()
+        if(playbookTags){
+            play_command = "ansible-playbook ${playbookFile} --tags [test,${playbookTags}]"
+        }
+        else {
+            play_command = "ansible-playbook ${playbookFile} --tags [test]"
+        }
+
         sh """
             cd insights-client/
             cp -pr hosts_localhost hosts
             source ${venvDir}/bin/activate
             export ANSIBLE_LOG_PATH="${WORKSPACE}/ansible_${env.NODE_NAME}.log"
             export JUNIT_OUTPUT_DIR="${WORKSPACE}/"
+            ${play_command}
         """
 
-        if(playbookTags){
-            sh """
-                ansible-playbook ${playbookFile} --tags [test,${playbookTags}]
-            """
-        }
-        else {
-            sh """
-                ansible-playbook ${playbookFile} --tags [test]
-            """
-        }
 }
