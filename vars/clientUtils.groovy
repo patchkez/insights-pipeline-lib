@@ -194,24 +194,20 @@ def runAnsible(String playbookFile, String playbookTags=null){
         sh """
             cd insights-client/
             cp -pr hosts_localhost hosts
+            source ${venvDir}/bin/activate
+            cd insights-client/
+            export ANSIBLE_LOG_PATH="${WORKSPACE}/ansible_${env.NODE_NAME}.log"
+            export JUNIT_OUTPUT_DIR="${WORKSPACE}/"
         """
 
         if(playbookTags){
             sh """
-                source ${venvDir}/bin/activate
-                cd insights-client/
-                export ANSIBLE_LOG_PATH="${WORKSPACE}/ansible_${env.NODE_NAME}.log"
-                export JUNIT_OUTPUT_DIR="${WORKSPACE}/"
                 ansible-playbook ${playbookFile} --tags [test,${playbookTags}]
             """
         }
         else {
             sh """
-                source ${venvDir}/bin/activate
-                cd insights-client/
-                export ANSIBLE_LOG_PATH="${WORKSPACE}/ansible_${env.NODE_NAME}.log"
-                export JUNIT_OUTPUT_DIR="${WORKSPACE}/"
-                ansible-playbook ${playbookFile}
+                ansible-playbook ${playbookFile} --tags [test]
             """
         }
 }
