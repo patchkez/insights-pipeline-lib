@@ -192,10 +192,10 @@ def runAnsible(String playbookFile, String playbookTags=null){
         echo "Running ansible..."
         venvDir = setupVenvDir()
         if(playbookTags){
-            play_command = "ansible-playbook ${playbookFile} --tags [test,${playbookTags}]"
+            play_command = "ansible-playbook ${playbookFile} --tags test,${playbookTags}"
         }
         else {
-            play_command = "ansible-playbook ${playbookFile} --tags [test]"
+            play_command = "ansible-playbook ${playbookFile} --tags test"
         }
 
         sh """
