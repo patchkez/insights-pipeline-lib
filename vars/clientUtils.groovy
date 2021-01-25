@@ -195,7 +195,6 @@ def runAnsible(String playbookFile, String playbookTags=null){
             cd insights-client/
             cp -pr hosts_localhost hosts
             source ${venvDir}/bin/activate
-            cd insights-client/
             export ANSIBLE_LOG_PATH="${WORKSPACE}/ansible_${env.NODE_NAME}.log"
             export JUNIT_OUTPUT_DIR="${WORKSPACE}/"
         """
