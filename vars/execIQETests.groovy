@@ -124,12 +124,14 @@ def call(args = [:]) {
 
     pipelineUtils.checkForReload()
 
-    // For build #1, only load the pipeline and exit
+    // For build #1, only load the pipeline and exit (applies only to pipelines with RELOAD parameter defined)
     // This is so the next time the job is built, "Build with parameters" will be available
     if (env.BUILD_NUMBER.toString() == "1") {
-        echo "Initial run, loaded pipeline job and now exiting."
-        currentBuild.description = "loaded params"
-        return
+        if (env.RELOAD) {
+            echo "Initial run, loaded pipeline job and now exiting."
+            currentBuild.description = "loaded params"
+            return
+        }
     }
 
     // if an app has been unchecked do not run tests for it
