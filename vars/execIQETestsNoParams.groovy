@@ -22,7 +22,6 @@
  * @throws AbortException if the 'RELOAD' parameter is true
  */
 def call(args = [:]) {
-    /*
     def appConfigs = args['appConfigs']
     def envs = args['envs']
     def options = args.get('options', [:])
@@ -34,7 +33,7 @@ def call(args = [:]) {
     def defaultImage = args.get('defaultImage')
     def extraJobProperties = args.get('extraJobProperties', [])
     def lockName = args.get('lockName')
-
+    /*
     p = []
     // Add a param option for simply reloading this job
     p.add(
