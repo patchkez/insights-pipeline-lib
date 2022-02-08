@@ -318,6 +318,7 @@ def runTests(Map parameters = [:]){
     def pytestParam = parameters.get("pytestParam", null)
     def satelliteInstance = parameters.get("satelliteInstance", null)
     def iqeVmRhel = parameters.get("iqeVmRhel", null)
+    def junitFileName = parameters.get("junitFileName", "junit.xml")
     if (iqeVmRhel){
         replaced_rhel_string = iqeVmRhel.replaceAll( /rhel/, 'rhel_' )
     }
@@ -371,7 +372,7 @@ def runTests(Map parameters = [:]){
             export SATELLITE_INSTANCE=${satelliteInstance}
             export IQE_VM_RHEL=${replaced_rhel_string}
             source ${venvDir}/bin/activate
-            iqe tests plugin ${plugin_test} --junitxml=junit.xml --disable-pytest-warnings -srxv ${pytestParam} -vvv --capture=sys
+            iqe tests plugin ${plugin_test} --junitxml=${junitFileName} --disable-pytest-warnings -srxv ${pytestParam} -vvv --capture=sys
         """
 }
 
