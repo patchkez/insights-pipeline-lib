@@ -319,6 +319,7 @@ def runTests(Map parameters = [:]){
     def satelliteInstance = parameters.get("satelliteInstance", null)
     def iqeVmRhel = parameters.get("iqeVmRhel", null)
     def junitFileName = parameters.get("junitFileName", "junit.xml")
+    def ibutsuSource = parameters.get("ibutsuSource", "unknown")
     if (iqeVmRhel){
         replaced_rhel_string = iqeVmRhel.replaceAll( /rhel/, 'rhel_' )
     }
@@ -356,7 +357,7 @@ def runTests(Map parameters = [:]){
             """
         }
         if (ibutsu) {
-            pytestParam = "${pytestParam} --ibutsu https://ibutsu-api.apps.ocp4.prod.psi.redhat.com --ibutsu-source stg-jenkins"
+            pytestParam = "${pytestParam} --ibutsu https://ibutsu-api.apps.ocp4.prod.psi.redhat.com --ibutsu-source ${ibutsuSource}"
             if (env) {
                 pytestParam = "${pytestParam} --ibutsu-data env=${env}"
             }
