@@ -52,9 +52,10 @@ def rhsmRegister(Map parameters = [:]){
     else if (satellite){
         echo "Subscribing machine to Satellite ..."
         satelliteHost = getSatHostFromExportedVar(satelliteKey: "${satellite}")
+        katelloRpmUrl = "http://\$${satelliteHost}/pub/katello-ca-consumer-\$${satelliteHost}-1.0-1.noarch.rpm"
+        echo "katello rpm: ${katelloRpmUrl}"
         sh """
-            curl -O -k http://\$${satelliteHost}/pub/katello-ca-consumer-\$${satelliteHost}-1.0-1.noarch.rpm
-            rpm -Uvh ./katello-ca-consumer-\$${satelliteHost}-1.0-1.noarch.rpm
+            rpm -Uvh ${katelloRpmUrl}
             subscription-manager register --org=${org} --activationkey=${activationKey}
             subscription-manager refresh
         """
