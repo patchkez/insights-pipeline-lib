@@ -53,9 +53,9 @@ def rhsmRegister(Map parameters = [:]){
         echo "Subscribing machine to Satellite ..."
         satelliteHost = getSatHostFromExportedVar(satelliteKey: "${satellite}")
         katelloRpmUrl = "http://\$${satelliteHost}/pub/katello-ca-consumer-\$${satelliteHost}-1.0-1.noarch.rpm"
-        echo "katello rpm: ${katelloRpmUrl}"
+        echo "katello rpm: \${katelloRpmUrl}"
         sh """
-            rpm -Uvh ${katelloRpmUrl}
+            rpm -Uvh \${katelloRpmUrl}
             subscription-manager register --org=${org} --activationkey=${activationKey}
             subscription-manager refresh
         """
