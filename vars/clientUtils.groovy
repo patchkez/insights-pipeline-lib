@@ -27,7 +27,7 @@ def getRhelMajor(){
 
 def getSatHostFromExportedVar(Map parameters = [:]) {
     def satelliteKey = parameters.get("satelliteKey", null)
-    def getSatHost = sh (script: "echo ${satelliteKey}", returnStdout: true)
+    def getSatHost = sh (script: "echo \$${satelliteKey}", returnStdout: true)
     return getSatHost
 }
 
@@ -52,10 +52,10 @@ def rhsmRegister(Map parameters = [:]){
     else if (satellite){
         echo "Subscribing machine to Satellite ..."
         satelliteHost = getSatHostFromExportedVar(satelliteKey: "${satellite}")
-        katelloRpmUrl = "http://\$${satelliteHost}/pub/katello-ca-consumer-\$${satelliteHost}-1.0-1.noarch.rpm"
-        echo "katello rpm: \${katelloRpmUrl}"
+        katelloRpmUrl = "http://${satelliteHost}/pub/katello-ca-consumer-${satelliteHost}-1.0-1.noarch.rpm"
+        echo "katello rpm: ${katelloRpmUrl}"
         sh """
-            rpm -Uvh \${katelloRpmUrl}
+            rpm -Uvh ${katelloRpmUrl}
             subscription-manager register --org=${org} --activationkey=${activationKey}
             subscription-manager refresh
         """
