@@ -28,7 +28,7 @@ def getRhelMajor(){
 def getSatHostFromExportedVar(Map parameters = [:]) {
     def satelliteKey = parameters.get("satelliteKey", null)
     def getSatHost = sh (script: "echo \$${satelliteKey}", returnStdout: true)
-    return getSatHost
+    return getSatHost.trim()
 }
 
 def rhsmRegister(Map parameters = [:]){
