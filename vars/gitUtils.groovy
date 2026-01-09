@@ -113,6 +113,7 @@ def checkOutRepo(parameters = [:]) {
     def repoUrl = parameters['repoUrl']
     def branch = parameters.get('branch', 'master')
     def credentialsId = parameters.get('credentialsId', 'github')
+    def cloneGitSubmodules = parameters.get('cloneGitSubmodules', false)
 
     return checkout([
         $class: 'GitSCM',
@@ -120,6 +121,14 @@ def checkOutRepo(parameters = [:]) {
         doGenerateSubmoduleConfigurations: false,
         extensions: [
             [$class: 'RelativeTargetDirectory', relativeTargetDir: targetDir],
+            [
+              $class: 'SubmoduleOption',
+              disableSubmodules: false,
+              parentCredentials: false,
+              recursiveSubmodules: cloneGitSubmodules,
+              shallow: true,
+              trackingSubmodules: false
+            ]
         ],
         submoduleCfg: [],
         userRemoteConfigs: [
@@ -173,7 +182,7 @@ def stageWithContext(String name, Boolean shortenURL = true, Closure body) {
     *
     * After:
     * gitUtils.stageWithContext("Run-integration-tests") {
-    *     body()   
+    *     body()
     * }
     */
     stage(name) {
